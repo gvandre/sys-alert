@@ -1,0 +1,15 @@
+{
+    "name": "acer/sys-alert",
+    "description": "App test",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "David Gutierrez",
+            "email": "andregutierrez159@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "kreait/firebase-php": "4.18"
+    }
+}
