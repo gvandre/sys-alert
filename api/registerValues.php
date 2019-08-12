@@ -4,9 +4,9 @@
   (new Firebase())->formatQuery(
     array(
       'executeStament'=> function ($body, $firebase) {
-        $dv1 = isset($body['sensor1']) ? $body['sensor1'] : '';
-        $dv2 = isset($body['sensor2']) ? $body['sensor2'] : '';
-        $dv3 = isset($body['sensor3']) ? $body['sensor3'] : '';
+        $dv1 = isset($body['gas']) ? $body['gas'] : '';
+        $dv2 = isset($body['temp']) ? $body['temp'] : '';
+        $dv3 = isset($body['hum']) ? $body['hum'] : '';
 
         if ($dv1 == '' || $dv2 == '' || $dv3 == '') {
           header('HTTP/1.1 412 Precondition Failed');
@@ -21,9 +21,10 @@
         }
 
         return $firebase->push(array(
-          'value1' => $dv1,
-          'value2' => $dv2,
-          'value3' => $dv3
+          'gas' => $dv1,
+          'temp' => $dv2,
+          'hum' => $dv3,
+          'createdAt' => date("Y-m-d H:i:s")
         ))->getKey();
       },
       'onSuccess'=> function($output) {

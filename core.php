@@ -21,7 +21,7 @@
           ->withServiceAccount($serviceAccount)
           ->withDatabaseUri($this->config['urlProject'])
           ->create();
-      } catch (\Throwable $th) {
+      } catch (Throwable $th) {
         header('HTTP/1.1 500 Internal Server Error');
         echo json_encode(
           array(
@@ -50,16 +50,15 @@
       $database = $this->firebase->getDatabase();
       $reference = $database->getReference($this->config['nodedb']);
       $body = $this->getBodyRequest();
-
       try {
         $result = $payload['executeStament']($body, $reference);
-      } catch (\Throwable $th) {
+      } catch (Throwable $th) {
         header('HTTP/1.1 500 Internal Server Error');
         echo json_encode(
           array(
             'code' => -1,
             'message' => 'Error in the process.',
-            'error' => 'Stament with errors, check documentation.',
+            'error' => 'Stament with errors, check documentation.'
           )
         );
         exit();

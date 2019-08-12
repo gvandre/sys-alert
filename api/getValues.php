@@ -4,7 +4,7 @@
   (new Firebase())->formatQuery(
     array(
       'executeStament'=> function ($body, $firebase) {
-        return $firebase->getValues();
+        return $firebase->getValue();
       },
       'onSuccess'=> function($output) {
         header('HTTP/1.1 200 Ok');
