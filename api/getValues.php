@@ -1,7 +1,7 @@
 <?php
   include_once('../core.php ');
 
-  (new Firebase())->formatQuery(
+  (new Core())->formatQuery(
     array(
       'executeStament'=> function ($body, $firebase) {
         return $firebase->getValue();
@@ -11,7 +11,7 @@
         echo json_encode(
           array(
             'code' => 0,
-            'message' => 'Get all values',
+            'message' => 'Proceso ejecutado',
             'data' => $output
           )
         );

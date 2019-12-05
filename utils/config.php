@@ -1,7 +1,7 @@
 <?php
   return array(
-    "nodedb" => "asdasd",
-    "fileConfig" => './credentials/sys-alert-1a4716dc0795.json',
+    "nodedb" => "sensores/valores",
+    "fileConfig" => '/credentials/sys-alert-280765e1cc02.json',
     "urlProject" => "https://sys-alert.firebaseio.com"
   )
 ?>

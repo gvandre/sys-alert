@@ -8,26 +8,25 @@
 
   use Kreait\Firebase\Factory;
   
-  class Firebase {
+  class Core {
     private $firebase;
     private $config;
 
     function __construct() {
       $this->config = require(__DIR__."/utils/config.php");
       try {
-        // $serviceAccount = ServiceAccount::fromJsonFile(__DIR__.$this->config['fileConfig']);
-        echo $this->config['fileConfig'];
-        $this->firebase = (new Factory)
-          ->withServiceAccount($this->config['fileConfig'])
-          ->withDatabaseUri($this->config['urlProject'])
-          ->createDatabase();
+        $serviceAccount = __DIR__.$this->config['fileConfig'];
+        $factory = (new Factory)
+          ->withServiceAccount(__DIR__.$this->config['fileConfig'])
+          ->withDatabaseUri($this->config['urlProject']);
+        $this->firebase = $factory->createDatabase();
       } catch (Throwable $th) {
         header('HTTP/1.1 500 Internal Server Error');
         echo json_encode(
           array(
             'code' => -1,
             'message' => 'Problemas al conectarse al servidor.',
-            'error' => 'Could not connect with firebase',
+            'error' => 'Could not connect with firebase'
           )
         );
         exit();
@@ -47,8 +46,8 @@
     }
 
     public function formatQuery ($payload) {
-      $database = $this->firebase->getDatabase();
-      $reference = $database->getReference($this->config['nodedb']);
+      // $database = $this->firebase->getDatabase();
+      $reference = $this->firebase->getReference($this->config['nodedb']);
       $body = $this->getBodyRequest();
       try {
         $result = $payload['executeStament']($body, $reference);
