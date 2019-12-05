@@ -7,33 +7,37 @@
         $dv1 = isset($body['gas']) ? $body['gas'] : '';
         $dv2 = isset($body['temp']) ? $body['temp'] : '';
         $dv3 = isset($body['hum']) ? $body['hum'] : '';
+        $usuario = isset($body['user']) ? $body['user'] : '';
 
-        if ($dv1 == '' || $dv2 == '' || $dv3 == '') {
+        if ($dv1 == '' || $dv2 == '' || $dv3 == '' || $usuario == '') {
           header('HTTP/1.1 412 Precondition Failed');
           echo json_encode(
             array(
               'code' => 1,
-              'message' => 'Parameters [sensor1, sensor2, sensor3] are required',
+              'message' => 'Parametros [gas, temp, hum y user] son requeridos.',
               'error' => 'Parameters required',
             )
           );
           exit();
         }
 
-        return $firebase->push(array(
-          'gas' => $dv1,
-          'temp' => $dv2,
-          'hum' => $dv3,
-          'createdAt' => date("Y-m-d H:i:s")
-        ))->getKey();
+        // return $firebase->push(array(
+        //   'gas' => $dv1,
+        //   'temp' => $dv2,
+        //   'hum' => $dv3,
+        //   'usuario' => $usuario
+        // ))->getKey();
+
+        return $firebase;
       },
       'onSuccess'=> function($output) {
+        echo $output;
         if (is_null($output)) {
           header('HTTP/1.1 406 Not Acceptable');
           echo json_encode(
             array(
               'code' => 1,
-              'message' => 'Process error',
+              'message' => 'Problemas al registrar, inténtelo de nuevo.',
               'error' => 'the values ​​could not be saved',
             )
           );
@@ -44,7 +48,7 @@
         echo json_encode(
           array(
             'code' => 0,
-            'message' => 'Saved successfully',
+            'message' => 'Registro guardado',
             'data' => $output
           )
         );

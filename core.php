@@ -7,7 +7,6 @@
   
 
   use Kreait\Firebase\Factory;
-  use Kreait\Firebase\ServiceAccount;
   
   class Firebase {
     private $firebase;
@@ -16,17 +15,18 @@
     function __construct() {
       $this->config = require(__DIR__."/utils/config.php");
       try {
-        $serviceAccount = ServiceAccount::fromJsonFile(__DIR__.$this->config['fileConfig']);
+        // $serviceAccount = ServiceAccount::fromJsonFile(__DIR__.$this->config['fileConfig']);
+        echo $this->config['fileConfig'];
         $this->firebase = (new Factory)
-          ->withServiceAccount($serviceAccount)
+          ->withServiceAccount($this->config['fileConfig'])
           ->withDatabaseUri($this->config['urlProject'])
-          ->create();
+          ->createDatabase();
       } catch (Throwable $th) {
         header('HTTP/1.1 500 Internal Server Error');
         echo json_encode(
           array(
             'code' => -1,
-            'message' => 'Error in the process.',
+            'message' => 'Problemas al conectarse al servidor.',
             'error' => 'Could not connect with firebase',
           )
         );
@@ -57,8 +57,8 @@
         echo json_encode(
           array(
             'code' => -1,
-            'message' => 'Error in the process.',
-            'error' => 'Stament with errors, check documentation.'
+            'message' => 'Problemas en el proceso, verificar documentacion.',
+            'error' => 'Request with errors, check documentation.'
           )
         );
         exit();
