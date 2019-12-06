@@ -1,7 +1,7 @@
 <?php
   include_once('../core.php ');
 
-  (new Firebase())->formatQuery(
+  (new Core())->formatQuery(
     array(
       'executeStament'=> function ($body, $firebase) {
         $dv1 = isset($body['gas']) ? $body['gas'] : '';
@@ -21,17 +21,15 @@
           exit();
         }
 
-        // return $firebase->push(array(
-        //   'gas' => $dv1,
-        //   'temp' => $dv2,
-        //   'hum' => $dv3,
-        //   'usuario' => $usuario
-        // ))->getKey();
-
-        return $firebase;
+        return $firebase->push(array(
+          'gas' => $dv1,
+          'temp' => $dv2,
+          'hum' => $dv3,
+          'usuario' => $usuario,
+          'createdAt' => date("Y-m-d H:i:s")
+        ))->getKey();
       },
       'onSuccess'=> function($output) {
-        echo $output;
         if (is_null($output)) {
           header('HTTP/1.1 406 Not Acceptable');
           echo json_encode(
