@@ -4,9 +4,9 @@
   (new Core())->formatQuery(
     array(
       'executeStament'=> function ($body, $firebase) {
-        $dv1 = isset($body['gas']) ? $body['gas'] : '';
-        $dv2 = isset($body['temp']) ? $body['temp'] : '';
-        $dv3 = isset($body['hum']) ? $body['hum'] : '';
+        $dv1 = isset($body['gas']) ? floatval($body['gas']) : '';
+        $dv2 = isset($body['temp']) ? floatval($body['temp']) : '';
+        $dv3 = isset($body['hum']) ? floatval($body['hum']) : '';
         $usuario = isset($body['user']) ? $body['user'] : '';
 
         if ($dv1 == '' || $dv2 == '' || $dv3 == '' || $usuario == '') {

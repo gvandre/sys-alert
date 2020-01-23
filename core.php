@@ -57,7 +57,8 @@
           array(
             'code' => -1,
             'message' => 'Problemas en el proceso, verificar documentacion.',
-            'error' => 'Request with errors, check documentation.'
+            'error' => 'Request with errors, check documentation.',
+            "sa" => $th
           )
         );
         exit();
